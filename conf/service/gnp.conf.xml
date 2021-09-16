@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<GNP>
+    <GnpLog log_path="./log/gnp" log_size="1073741824" log_num="10" log_level="2" />
+    <ServiceLog log_path="./log/service" log_size="1073741824" log_num="10" log_level="2" />
+
+    <ConnInfo max_client="4096" max_admin="10" timeout="60" buffer_size="1048576" select_timeout="5" desc="seconds" />
+    <MsgPkg package="nFieldLen" field_len_type="int" field_len_pos="0" />
+
+    <Service>
+        <Bind_0 bind_ip="0.0.0.0" bind_port="45678" protocol="tcp" />
+    </Service>
+
+    <IpLimit order="allow,deny" allow="*" deny="192.168.1.1" />
+
+    <ShmQueue>
+        <Queue_0 id="gnp_2_svr" fifo="gnp_2_svr_fifo" size="33554432" />
+        <Queue_1 id="svr_2_gnp" fifo="svr_2_gnp_fifo" size="33554432" />
+    </ShmQueue>
+
+    <MessageTimeout value="2" desc="milliseconds" />
+
+    <ThreadPool num="20" />
+
+    <Session timeout="77" desc="milliseconds" />
+
+    <!-- city: PRERELEASE SHUNDE NANSHA ... -->
+    <!-- role: SCORING SORTING FILTER ... -->
+    <Algorithm city="SHUNDE,NANSHA" role="SORTING" id="32.4558.0" weight="80" />
+
+    <Redis cluster="sd1-redis-bigdata-vre-s01.vip.vip.com:7016,sd1-redis-bigdata-vre-s02.vip.vip.com:7017,sd1-redis-bigdata-vre-s06.vip.vip.com:7016,sd1-redis-bigdata-vre-s07.vip.vip.com:7017,sd1-redis-bigdata-vre-s11.vip.vip.com:7016,sd1-redis-bigdata-vre-s12.vip.vip.com:7017,sd1-redis-bigdata-vre-s16.vip.vip.com:7016,sd1-redis-bigdata-vre-s17.vip.vip.com:7017,sd1-redis-bigdata-vre-s21.vip.vip.com:7016,sd1-redis-bigdata-vre-s22.vip.vip.com:7017,sd1-redis-bigdata-vre-s26.vip.vip.com:7016,sd1-redis-bigdata-vre-s27.vip.vip.com:7017,sd1-redis-bigdata-vre-s31.vip.vip.com:7016,sd1-redis-bigdata-vre-s32.vip.vip.com:7017,sd1-redis-bigdata-vre-s36.vip.vip.com:7016,sd1-redis-bigdata-vre-s37.vip.vip.com:7017,sd1-redis-bigdata-vre-s41.vip.vip.com:7016,sd1-redis-bigdata-vre-s42.vip.vip.com:7017,sd1-redis-bigdata-vre-s46.vip.vip.com:7016,sd1-redis-bigdata-vre-s47.vip.vip.com:7017,sd1-redis-bigdata-vre-s51.vip.vip.com:7016,sd1-redis-bigdata-vre-s52.vip.vip.com:7017,sd1-redis-bigdata-vre-s56.vip.vip.com:7016,sd1-redis-bigdata-vre-s57.vip.vip.com:7017,sd1-redis-bigdata-vre-s61.vip.vip.com:7016,sd1-redis-bigdata-vre-s62.vip.vip.com:7017,sd1-redis-bigdata-vre-s66.vip.vip.com:7016,sd1-redis-bigdata-vre-s67.vip.vip.com:7017,sd1-redis-bigdata-vre-s71.vip.vip.com:7016,sd1-redis-bigdata-vre-s72.vip.vip.com:7017" />
+</GNP>

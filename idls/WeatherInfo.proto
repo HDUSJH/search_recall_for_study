@@ -1,0 +1,23 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+
+//天气数据
+//key：crawler_weather_future_$region_id
+message WetherInfoCollection{
+    repeated WetherInfo wether_info_col             =1;                    //最近三天的天气数据集合
+ 
+    message WetherInfo{
+        bytes region_id                = 1;               //地理位置编号，关联vipdm.dim_region的region_id
+        bytes date                    = 2;               //天气所属日期,yyyy-MM-dd
+        float highest_temp              = 3;               //date当天最高气温，单位摄氏度，保留一位小数
+        float minimum_temp              = 4;               //date当天最低气温，单位摄氏度，保留一位小数
+        float avg_temp                  = 5;               //date当天平均气温，单位摄氏度，保留一位小数
+        int32 temp_level                = 6;               //date当天平均气温等级，用avg_temp查hive_bad.temp_dress_level
+        int32 clothes_level             = 7;               //date当天平均气温对应穿衣指数，用avg_temp查hive_bad.temp_dress_level
+        float week_avg_max_temp          = 8;               //未来七天平均最高气温，单位摄氏度，保留一位小数
+        float week_avg_min_temp         = 9;               //未来七天平均最低气温，单位摄氏度，保留一位小数
+        float week_avg_temp            = 10;              //未来七天平均气温，单位摄氏度，保留一位小数
+        int32 week_temp_level           = 11;              //未来七天平均气温等级，用week_avg_temp查hive_bad.temp_dress_level
+        int32 week_clothes_level        = 12;              //未来七天平均气温对应穿衣指数，用week_avg_temp查hive_bad.temp_dress_level
+    }
+}

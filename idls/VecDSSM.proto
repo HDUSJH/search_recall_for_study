@@ -1,0 +1,14 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+
+message ItemVecDSSM
+{
+    uint64 item_id          = 1 ;  // spu_id or goods_id
+    repeated float item_vec = 2 ;  // vector exported from item tower
+}
+
+message UserVecDSSM
+{
+    uint64 user_id          = 1 ;  // user_id
+    repeated float user_vec = 2 ;  // vector exported from user tower
+}

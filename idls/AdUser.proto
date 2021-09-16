@@ -1,0 +1,44 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+
+message AdUser {
+    string imei                                           = 1; //设备号
+    string mid                                            = 2; //mid
+    string user_id                                        = 3; //用户id
+    uint32 age                                            = 4; //年龄
+    uint32 gender                                         = 5; //性别
+    string constellation                                  = 6; //星座
+    string region                                         = 7; //地域
+    string education                                      = 8; //教育程度
+    string consume_levels                                 = 9; //消费水平
+    uint32 is_married                                     = 10; //婚姻状态	
+    string user_baby_tag                                  = 11; //是否有小孩	
+    string q_vip_4_crowd                                  = 12; //4类人群	
+    string c_vip_14_crowd                                 = 13; //14类人群	
+    uint32 is_svip                                        = 14; //是否svip	
+    uint32 last_visit_days                                = 15; //最后一次访问距今天数	
+    uint32 visit_days_90d                                 = 16; //90天内访问天数	
+    uint32 last_order_days                                = 17; //最后一次下单距今天数	
+    uint32 order_days_90d                                 = 18; //90天内下单天数
+    map<uint32,uint64> cate3_visit_cnt_90d                = 19; //90天内三级品类访问次数
+    map<uint32,uint64> cate3_last_visit_days              = 20; //三级品类最后一次访问距今天数	
+    map<uint32,uint64> cate3_like_cnt_180d                = 21; //180天内三级品类收藏次数
+    map<uint32,uint64> cate3_last_like_days               = 22; //三级品类最后一次收藏距今天数
+    map<uint32,uint64> cate3_cart_cnt_180d                = 23; //180天内三级品类加购次数
+    map<uint32,uint64> cate3_last_cart_days               = 24; //三级品类最后一次加购距今天数
+    map<uint32,uint64> cate3_order_cnt_360d               = 25; //360天内三级品类下单次数
+    map<uint32,uint64> cate3_last_order_days              = 26; //三级品类最后一次下单距今天数
+    map<uint32,uint64> brand_visit_cnt_90d                = 27; //90天内品牌访问次数
+    map<uint32,uint64> brand_last_visit_days              = 28; //品牌最后一次访问距今天数
+    map<uint32,uint64> brand_like_cnt_180d                = 29; //180天内品牌收藏次数
+    map<uint32,uint64> brand_last_like_days               = 30; //品牌最后一次收藏距今天数
+    map<uint32,uint64> brand_cart_cnt_180d                = 31; //180天内品牌加购次数
+    map<uint32,uint64> brand_last_cart_days               = 32; //品牌最后一次加购距今天数
+    map<uint32,uint64> brand_order_cnt_360d               = 33; //360天内品牌下单次数
+    map<uint32,uint64> brand_last_order_days              = 34; //品牌最后一次下单距今天数
+    map<uint64,uint64> goods_visit_cnt_90d                = 35; //90天内商品访问次数
+    map<uint64,uint64> goods_last_visit_days              = 36; //商品最后一次访问距今天数
+    uint32 ad_click_cnt_90d                               = 37; //90天内广告点击次数
+    uint32 prclvl                                         = 38; //价格敏感
+    uint32 push_click_cnt_90d                             = 39; //90天内push点击次数
+}

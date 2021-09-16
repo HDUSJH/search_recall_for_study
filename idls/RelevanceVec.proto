@@ -1,0 +1,32 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+
+// message RelQueryVec {
+//     string query            = 1; // 搜索词
+//     repeated float txt_vec  = 2; // 文本向量
+//     repeated float clk_vec  = 3; // 点击向量
+//     float weight            = 4; // 分数权重
+// }
+
+message RelQueryTextVec {
+    string query            = 1; // 搜索词
+    repeated float txt_vec  = 2; // 文本向量
+}
+
+message RelQueryClickVec {
+    string query            = 1; // 搜索词
+    repeated float clk_vec  = 2; // 点击向量
+}
+
+message RelItemVec {
+    uint64 item_id          = 1; // 商品ID
+    repeated float txt_vec  = 2; // 文本向量
+    repeated float clk_vec  = 3; // 点击向量
+    float txt_weight        = 4; // 文本分权重
+    float clk_weight        = 5; // 点击分权重    
+}
+
+message RelMidVec {
+    repeated float txt_mid_vec  = 1; // 文本暂存向量
+    repeated float clk_mid_vec  = 2; // 点击暂存向量
+}

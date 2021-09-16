@@ -1,0 +1,41 @@
+entity:
+  - done_path: not_path
+    is_local: false
+    path: not_path
+    type: 1
+    disable: false
+  - done_path: /apps/dat/data/Tess_Sorting_0.4559.0/data/algorithm/0.4559.0/sorting_ranksvm.mdl.0.4559.0.done
+    is_local: true
+    path: /apps/dat/data/Tess_Sorting_0.4559.0/data/algorithm/0.4559.0/sorting_ranksvm.mdl.0.4559.0
+    type: 2
+    disable: false
+  - done_path: not_path
+    is_local: false
+    path: not_path
+    type: 3
+    disable: false
+  - done_path: not_path
+    is_local: false
+    path: not_path
+    type: 4
+    disable: true
+  - done_path: not_path
+    is_local: false
+    path: not_path
+    type: 5
+    disable: false
+  - done_path: /apps/dat/data/Tess_Sorting_0.7902.0/data/algorithm/0.7902.0/sorting_ranksvm.mdl.0.7902.0.done
+    is_local: true
+    path: /apps/dat/data/Tess_Sorting_0.7902.0/data/algorithm/0.7902.0/sorting_ranksvm.mdl.0.7902.0
+    type: 6
+    disable: false
+  - done_path: /apps/dat/data/Tess_Sorting_0.7903.0/data/algorithm/0.7903.0/sorting_ranksvm.mdl.0.7903.0.done
+    is_local: true
+    path: /apps/dat/data/Tess_Sorting_0.7903.0/data/algorithm/0.7903.0/sorting_ranksvm.mdl.0.7903.0
+    type: 7
+    disable: false
+binhash:
+  - disable: false
+    done_path: /apps/dat/data/Tess_Sorting_0.91002.0/data/algorithm/0.91002.0/sorting_ranksvm.mdl.0.91002.0.done
+    path: /apps/dat/data/Tess_Sorting_0.91002.0/data/algorithm/0.91002.0/sorting_ranksvm.mdl.0.91002.0
+    serial: 1

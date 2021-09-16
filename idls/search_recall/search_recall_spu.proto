@@ -1,0 +1,13 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+
+message SearchRecallSpu
+{
+    uint32 cat1_id = 1; //一级类目id
+    uint32 cat2_id = 2; //二级类目id
+    uint32 cat3_id = 3; //三级类目id
+    uint32 brandsn = 4; //商品id
+    string brandsn_level = 5; //品牌等级
+    string spu_title = 6; //商品名称
+    float comments_satisfied_ratio = 7; //好评率
+}

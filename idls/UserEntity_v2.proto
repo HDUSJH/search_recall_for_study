@@ -1,0 +1,21 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+
+import "item_info.proto";
+
+message UserV2{
+    map<uint32, UserBehaviorSeq > click_seq_long = 1; // 用户点击商品序列，最多50个
+    map<uint32, UserBehaviorSeq > cart_seq_long  = 2; // 用户加购商品序列，最多50个
+    map<uint32, UserBehaviorSeq > collect_seq_long = 3; // 用户收藏商品序列，最多50个
+    map<uint32, UserBehaviorSeq > order_seq_long = 4; // 用户订单商品序列，最多50个
+    map<uint32, UserPreferenceSpu> ct_3_prefer = 5; //用户三级类目下的spu偏好，最多30个
+    map<uint32, UserPreferenceSpu> ct_2_prefer = 6; //用户二级类目下的spu偏好
+
+    message UserPreferenceSpu
+    {
+        repeated uint64 spu_id_list = 1; // 偏好spu
+    }
+    message UserBehaviorSeq{
+        repeated ItemInfo iteminfo_list = 1 ;//用户行为序列
+    }
+}

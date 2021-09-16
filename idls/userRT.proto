@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+option cc_enable_arenas = true;
+import "item_info.proto";
+
+// UserRT.proto
+message UserRT{
+    string mid = 1;
+
+    UserClickItem user_click_item = 2;
+    UserlikeItem user_like_item = 3;
+    UserAddCartItem user_add_cart_item = 4;
+
+    UserLikeBrand user_like_brand = 5;
+    UserLikeCt3 user_like_ct3 = 6;
+
+    UserEmb user_emb = 7;
+
+    UserQueryInfo user_query_info = 8;
+
+    UserOrderItem user_order_item = 9;
+
+    UserLikeCt2 user_like_ct2 = 10;
+
+    UserEmb user_emb_v2 = 11; // 点击-1，加购/收藏-4，订单-8
+
+    UserAdClickItem user_ad_click_items = 12; // 实时广告商品点击序列
+
+    FeedBackItem feedBackItem = 13; //用户实时负反馈信息
+
+    GenderPreferItem gender_prefer_item = 14; //用户实时性别意图信息
+}
+
+// 已有信息：
+// 实时点击商品
+// key: zt_{mid}#mtl#dt
+// area: 163
+// table: rtrs_zt_mtl_sum
+message UserClickItem{
+    repeated ItemInfo item_info = 1;
+}
+
+// 实时偏好商品
+// key: zt_{mid}#gl#sum
+// area: 155
+// table: rtrs_active_retarget
+message UserlikeItem{
+    repeated ItemInfo item_info = 1;
+}
+
+
+// 实时搜索词序列
+// key: ret_ipt_src_text_new_{mid}
+// area: 442
+// table: user_his_search
+message UserQueryInfo{
+    repeated QueryInfo query_info = 1;
+}
+
+message QueryInfo{
+    string query = 1; // 搜索词
+    uint32 brand_id = 2; // 搜索词对应品牌id，待生产
+    uint64 timestamp = 3; // 搜索时间
+
+    repeated uint32 ct3_id = 4; // 搜索词对应三级品类id，待生产
+    repeated float ct3_id_weight = 5; // 搜索词对应三级品类id，待生产
+}
+
+// 实时偏好品牌
+// key: zt_{mid}#bl#sum
+// area: 155
+// table: rtrs_active_retarget
+message UserLikeBrand{
+    repeated uint32 brand_id = 1; // 品牌id
+}
+
+
+// 实时偏好三级品类
+// key：zt_{mid}#c#pp#rdsum
+// area：164
+// table: rtrs_zt_odadj_dt
+message UserLikeCt3{
+    repeated uint32 ct3_id = 1; // 偏好三级品类id
+}
+
+// 实时二级品类偏好
+message UserLikeCt2 {
+    repeated uint32 ct2_id = 1; // 偏好三级品类id
+}
+
+// 待生成：
+// 实时加购商品序列
+// 实时加购品牌序列
+// 实时加购三级品类序列
+// 实时加购二级品类序列
+message UserAddCartItem{
+    repeated ItemInfo item_info = 1;
+}
+
+// 实时站外广告商品点击序列
+message UserAdClickItem {
+    repeated ItemInfo item_info = 1;
+}
+
+
+// 预训练 emb
+// 用户实时商品向量
+// key：zt_{mid}#vec#all#st
+// area：155
+// table: rtrs_type_retgt_info
+message UserEmb {
+    repeated float user_realtime_spu_emb = 1; // 用户实时商品向量
+}
+
+// 用户实时下单商品
+message UserOrderItem{
+    repeated ItemInfo item_info = 1;
+}
+
+//用户负反馈信息
+message FeedBackItem{
+    map<string,int64> feedback_imp = 1;// 曝光次数
+    map<string,int64> feedback_click = 2;// 点击次数
+    map<string,int64> feedback_cart = 3;// 加购次数
+}
+
+// 用户性别意图
+// gender_label中 key=1,2,3,4 分别表示男士，男童，女士，女童
+message GenderPreferItem{
+    repeated string goods_gender_seq = 1;//商品点击性别序列
+    map<uint32,float> gender_label = 2;//性别标签
+    uint64 timestamp = 3; //数据时间
+}

@@ -1,0 +1,180 @@
+syntax = "proto3";
+//************************************************************
+// Description: User Entity protobufer
+// Author: vincent.he ,shawn.wang, tracy01.xie
+// Created: 20201125
+// Copy Right: Vipshop @ 2020
+// command : protoc --python_out=. UserEntity.proto
+// History:
+//     20201125 vincent.he created
+//     20201127 vincent.he 修改字段名称
+//     20201216 vincent.he 增加用户侧手机和app信息
+//     20210507 vincent.he 增加用户tag与用户品类下偏好tag
+//     20210512 vincent.he 增加full_prefer_brandsn, 需求by 徐凤阳
+//     20210609 vincent.he 增加order_seq_2year, 需求by 成鹏
+//     20210610 vincent.he 增加刻画消费能力的字段, 需求by 徐凤阳
+//
+//
+//*************************************************************
+// 说明 redis中的key 和value
+// key: uid   如 62343008
+// value: UserEntity.proto.User
+
+import "item_info.proto";
+
+option cc_enable_arenas = true;
+message User {
+    // 用户基本信息 by vincent.he
+    uint64 user_id                                 = 1; //用户id 
+    uint32 gender                                  = 2; //性别（1-男2-女0-未知）
+    uint32 age                                     = 3; //年龄
+    string birthday                                = 4; //生日格式yyyy-MM-dd
+    string constellation                           = 5; //星座
+    uint32 province_id                             = 6; //省份代码见vipdm.dim_region.province
+    uint32 city_id                                 = 7; //城市代码见vipdm.dim_region.city
+    uint64 area_id                                 = 8; //行政区/县id
+    uint32 city_level                              = 9; //城市线级
+    string warehouse                               = 10;//所属仓库(VIP_BJ,VIP_CD,VIP_SH,VIP_NH,VIP_HZ)
+    uint32 size_gender                             = 11;//尺码性别1-男2-女
+    uint32 height                                  = 12;//身高(cm)
+    uint32 weight                                  = 13;//体重(kg)
+    uint32 shoulder                                = 14;//肩宽(cm)
+    uint32 bust                                    = 15;//胸围(cm)
+    uint32 waist                                   = 16;//腰围(cm)
+    uint32 hip                                     = 17;//臀围（cm）
+    uint32 register_days                           = 18;//注册时长（天）
+    uint32 vmark                                   = 19;//v值
+    string vmark_name                              = 20;//会员等级(银卡,金卡，白金卡)
+    uint32 is_svip                                 = 21;//是否超级VIP(1-是，0-否)
+    uint32 v_coin                                  = 22;//唯品币
+    repeated uint32 buy_for                        = 23;//购物对象(个人中心填写)57-自己，58-伴侣，59-长辈枚举见vipshop_user_center.tags
+    repeated uint32 buy_habit                      = 24;//购物习惯(个人中心填写),枚举见vipshop_user_center.tags.tag_type=3
+    uint32 visit_days                              = 25;//上次访问时长(天)dt-last_visit_day+1
+    uint32 buy_days                                = 26;//上次购买时长dt-last_buy_day+1
+    uint32 active_days                             = 27;//活跃天数(最近3个月)
+    uint32 sign_days                               = 28;//签到天数（最近7天）
+    uint32 browse_goods_cnt_30d                    = 29;//足迹商品数(最近30天)
+    uint32 collect_goods_cnt_30d                   = 30;//在售商品收藏数
+    uint32 collect_brandsn_cnt                     = 31;//品牌收藏数
+    repeated UserCoupon coupons                    = 32;//用户券信息（全场券）
+
+    //用户统计信息 by shawn.wang
+    float click2order_rate_30d                     = 33;      //30天点击下单率
+    float cart2order_rate_30d                      = 34;      //30天加购下单率
+    float reject_rate_30d                          = 35;      //30天退货率
+    float cart_amt_30d                             = 36;      //30天加购均价
+    float collect_amt_30d                          = 37;      //30天收藏均价
+    float order_amt_30d                            = 38;      //30天购买均价
+    uint32 order_cnt_30d                           = 39;      //30天购买次数
+    uint32 coupon_cnt_30d                          = 40;      //30天使用优惠券次数
+    float click2order_rate_90d                     = 41;      //90天点击下单率
+    float cart2order_rate_90d                      = 42;      //90天加购下单率
+    float reject_rate_90d                          = 43;      //90天退货率
+    float cart_amt_90d                             = 44;      //90天加购均价
+    float collect_amt_90d                          = 45;      //90天收藏均价
+    float order_amt_90d                            = 46;      //90天购买均价
+    uint32 order_cnt_90d                           = 47;      //90天购买次数
+    uint32 coupon_cnt_90d                          = 48;      //90天使用优惠券次数
+
+    //用户偏好信息  by shawn.wang
+    map<uint32, uint32> cat1_purchase_level          = 49;    //一级品类消费等级(0:未知 1:高 2:中 3:低)，key为一级品类id，value为等级
+    repeated uint32 prefer_cat2                      = 50;    //用户偏好类目新2级
+    repeated uint32 prefer_cat3                      = 51;    //用户偏好类目新3级
+    map<uint32,UserPreferenceBrandSn> prefer_brandsn = 52;    //用户偏好品牌 key为cat3_id, value是品牌list
+    repeated uint32 prefer_sellpoint                 = 53;    //用户偏好卖点
+    repeated uint32 prefer_style                     = 54;    //用户偏好风格
+
+    // 用户序列 by tracy01.xie
+    repeated ItemInfo click_seq_90d                  = 55;  //用户点击商品序列
+    repeated ItemInfo cart_seq_90d                   = 56;  //用户加购商品序列
+    repeated ItemInfo collect_seq_90d                = 57;  //用户收藏商品序列
+    repeated ItemInfo order_seq_90d                  = 58;  //用户订单商品序列
+    repeated ItemInfo click_seq_30d                  = 59;  //用户点击商品序列
+    repeated ItemInfo cart_seq_30d                   = 60;  //用户加购商品序列
+    repeated ItemInfo collect_seq_30d                = 61;  //用户收藏商品序列
+    repeated ItemInfo order_seq_30d                  = 62;  //用户订单商品序列
+
+    //用户向量  by tracy01.xie
+    repeated float spu_vec                         = 63;   //用户全局商品向量
+    repeated float brand_vec                       = 64;  //用户全局品牌向量
+    repeated float spu_img_vec                     = 65;  //用户商品图像向量
+
+    // 用户侧手机及app信息  by link.lu
+    string app_platform                            = 66; // app平台
+    string app_version                             = 67; // app版本
+    string manufacturer                            = 68; // 手机厂商 如 apple
+    string phone_model                             = 69; // 手机型号 如 iPhone 6s plus
+    string app_source                              = 70; // app下载来源 如 app store_new
+    string os                                      = 71; // 操作系统  如 ios/andrior
+    string os_version                              = 72; // 操作系统版本
+
+    //用户分行为序列向量 by yang04.zheng
+    repeated float clk_spu_vec                         = 75;   //用户点击spu序列（90天）聚合的向量
+    repeated float cart_spu_vec                         = 76;   //用户加购spu序列（90天）聚合的向量
+    repeated float order_spu_vec                         = 77;   //用户购买spu序列（90天）聚合的向量
+    repeated float clk_brandsn_vec                         = 78;   //用户点击brandsn序列（90天）聚合的向量
+    repeated float cart_brandsn_vec                         = 79;   //用户加购brandsn序列（90天）聚合的向量
+    repeated float order_brandsn_vec                         = 80;   //用户购买brandsn序列（90天）聚合的向量
+
+    
+    // 用户tag与用户品类偏好tag  vincent.he 20210507
+    map<uint32, uint32> ptp_tags                   = 81; //map<ptp标签组id, ptp标签id> 数据来源vipup.ads_udb_user_tags.tags
+    map<uint32, Tags> prefer_cat1_ptp_tags = 82;  // 一级类目偏好标签, 数据来源vipup.ads_udb_user_category_tags.cat1_tags
+    map<uint32, Tags> prefer_cat3_ptp_tags = 83;  // 三级类目偏好标签, 数据来源vipup.ads_udb_user_category_tags.cat3_tags
+
+    // 用户全局品牌偏好map结构 vincent.he 20210512
+    map<uint32, uint32> full_prefer_brandsn = 84; // 用户全局品牌偏好map结构,数据来源 prefer_brandsn字段  map<品牌id, value暂时无意义> ,主要提供给算法同学做match用,map结构性能好点
+    repeated ItemInfo order_seq_2year       = 85; // 用户2年购买序列, 截断200个
+
+    // 新增用户消费能力、尺码及偏好强度等维度的特征  by 徐凤阳  20210628
+    map<uint32, float> cat2_arrive_price                      =90;      // 用户最近90天二级类目下单/加购平均到手价
+    map<uint32, float> cat3_arrive_price                      =91;      // 用户最近90天三级类目下单/加购平均到手价
+    map<uint32, string> cat2_freq_brandlevel                  =92;      // 用户最近90天二级类目下单/加购次数最多的品牌等级
+    map<uint32, string> cat2_latest_brandlevel                =93;      // 用户最近90天二级类目最近一次下单/加购品牌等级      (废弃，不写入数据)
+    map<uint32, string> cat3_freq_brandlevel                  =94;      // 用户最近90天三级类目下单/加购次数最多的品牌等级
+    map<uint32, string> cat3_latest_brandlevel                =95;      // 用户最近90天三级类目最近一次下单/加购品牌等级
+    repeated string cat2_sizename                             =96;      // 用户最近90天二级类目下单/加购 二级类目 + 尺码名    (废弃，不写入数据)
+    repeated string cat3_sizename                             =97;      // 用户最近90天三级类目下单/加购 三级类目 + 尺码名
+    map<uint64, uint32> clk_goods_id_cnt                      =98;      // 用户最近90天点击goods的次数                     (废弃，不写入数据)
+    map<uint64, uint32> clk_goods_id_rec_day                  =99;      // 用户最近90天最近一次点击goods距今天数             (废弃，不写入数据)
+    map<uint64, uint32> clk_spu_id_cnt                        =100;      // 用户最近90天点击spu的次数
+    map<uint64, uint32> clk_spu_id_rec_day                    =101;      // 用户最近90天最近一次点击spu距今天数               (废弃，不写入数据)
+    map<uint32, uint32> clk_brand_id_cnt                      =102;      // 用户最近90天点击brand id 的次数                 (废弃，不写入数据)
+    map<uint32, uint32> clk_brand_id_rec_day                  =103;      // 用户最近90天最近一次点击brand id 距今天数
+    map<uint32, uint32> clk_cat3_id_cnt                       =104;      // 用户最近90天点击cat3 的次数
+    map<uint32, uint32> clk_cat3_id_rec_day                   =105;      // 用户最近90天最近一次点击cat3 距今天数             (废弃，不写入数据)
+    map<uint64, uint32> conv_goods_id_cnt                     =106;      // 用户最近90天下单/收藏/加购goods的次数            (废弃，不写入数据)
+    map<uint64, uint32> conv_goods_id_rec_day                 =107;      // 用户最近90天最近一次下单/收藏/加购goods距今天数    (废弃，不写入数据)
+    map<uint64, uint32> conv_spu_id_cnt                       =108;      // 用户最近90天下单/收藏/加购spu的次数
+    map<uint64, uint32> conv_spu_id_rec_day                   =109;      // 用户最近90天最近一次下单/收藏/加购spu距今天数       (废弃，不写入数据)
+    map<uint32, uint32> conv_brand_id_cnt                     =110;      // 用户最近90天下单/收藏/加购brand id 的次数         (废弃，不写入数据)
+    map<uint32, uint32> conv_brand_id_rec_day                 =111;      // 用户最近90天最近一次下单/收藏/加购brand id 距今天数
+    map<uint32, uint32> conv_cat3_id_cnt                      =112;      // 用户最近90天下单/收藏/加购cat3 的次数             (废弃，不写入数据)
+    map<uint32, uint32> conv_cat3_id_rec_day                  =113;      // 用户最近90天最近一次下单/收藏/加购cat3 距今天数
+
+
+    message UserCoupon {
+        string coupon_sn = 1; // 券号
+        uint32 use_limit = 2; // 门槛
+        uint32 offer     = 3; // 优惠金额
+    }
+
+
+    message UserPreferenceBrandSn
+    {
+        repeated uint32 brandsn_list = 1; // 偏好品牌、权重
+    }
+
+    message TagPair
+    {
+       uint32 tag_group_id  = 1; // 标签组id
+       uint32 tag_id        = 2; // 标签值id
+    }
+
+    message Tags 
+    {
+        repeated TagPair tags = 1; // 标签列表
+    }
+
+
+}

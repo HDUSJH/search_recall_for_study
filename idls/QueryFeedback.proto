@@ -1,0 +1,20 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+message QueryFeedback{
+    string search_word = 1; //搜索词
+    uint32 max_score_cat3_id = 2; //类目反馈最大分类目
+    uint32 max_score_cat3_id_female = 3; //类目反馈（女性）最大分类目
+    uint32 max_score_cat3_id_male = 4; //类目反馈（男性）最大分类目
+    uint32 max_score_brandsn = 5; //类目反馈（男性）最大分类目
+    map<uint32,float> rs_search_word_cat3_id = 6;//类目反馈类目分
+    map<uint32,float> rs_search_word_cat3_id_female = 7;//类目反馈类目分
+    map<uint32,float> rs_search_word_cat3_id_male = 8;//类目反馈类目分
+    map<uint32,float> vre_querybrand = 9;//类目反馈类目分
+
+    repeated uint32 rs_search_word_cat3_id_list = 10;//类目反馈类目分
+    repeated uint32 rs_search_word_cat3_id_female_list = 11;//类目反馈类目分
+    repeated uint32 rs_search_word_cat3_id_male_list = 12;//类目反馈类目分
+    repeated uint32 vre_querybrand_list = 13;//类目反馈类目分
+
+    repeated float query_text_emb      = 20;    // 搜索词文本预训练向量
+}

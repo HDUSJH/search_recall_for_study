@@ -1,0 +1,20 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+
+import "item_info.proto";
+
+message UserAction{
+    repeated ItemInfo click_seq_90d = 1; // 用户点击商品序列
+    repeated ItemInfo cart_seq_90d = 2; // 用户加购商品序列
+    repeated ItemInfo like_seq_90d = 3; // 用户收藏商品序列
+    repeated ItemInfo order_seq_90d = 4; // 用户订单商品序列
+ 
+    repeated ItemInfo click_seq_30d = 5; // 用户点击商品序列
+    repeated ItemInfo cart_seq_30d = 6; // 用户加购商品序列
+    repeated ItemInfo like_seq_30d = 7; // 用户收藏商品序列
+    repeated ItemInfo order_seq_30d = 8; // 用户订单商品序列
+ 
+    repeated float spu_embed = 9; // 用户全局商品向量
+    repeated float brand_embed = 10; // 用户全局品牌向量
+    repeated float spu_img_embed = 11; // 用户商品图像向量
+}

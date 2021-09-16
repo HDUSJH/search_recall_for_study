@@ -1,0 +1,43 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+message QueryProcessInfo
+{
+    string query = 1; // 搜索词
+    repeated string query_seg_lst = 2; // 搜索词文本分词列表
+    QueryProcessIntent query_proc_intent = 3; // 搜索词意图
+    QueryProcessEmbedding query_proc_emb = 4;
+    QueryProcessStat query_proc_stat = 5;
+    repeated uint32 query_seq_id_lst = 6;
+}
+ 
+message QueryProcessIntent
+{
+    repeated string main_prod        = 1; // 主产品意图
+    repeated string ext_prod_lst     = 2; // 扩展主产品意图列表
+    repeated uint64 brandsn          = 3; // 品牌
+    uint32 cate1                     = 4; // 一级品类
+    uint32 cate2                     = 5; // 二级品类
+    repeated uint32 cate3            = 6; // 三级品类
+    repeated string prop_lst         = 7; // 属性词列表
+    repeated uint32 main_prod_id_lst = 8; // 主产品意图
+    repeated uint32 ext_prod_id_lst  = 9; // 扩展主产品意图列表
+    repeated uint32 property_id_lst  = 10; // 属性词列表
+    repeated uint32 ner_lst          = 11; // 词性id列表
+}
+ 
+message QueryProcessEmbedding
+{
+    repeated float qp_emb_def = 1; // 搜索词默认性别向量
+    repeated float qp_emb_male = 2; // 搜索词男性向量
+    repeated float qp_emb_female = 3; // 搜索词女性向量
+    repeated float qp_emb_hot_clk = 4; // 搜索词热门点击商品向量
+    repeated float qp_emb_hot_ord = 5; // 搜索词热门订单商品向量
+    repeated float qp_emb_ernie = 6; // ernie双塔搜索词向量
+}
+ 
+message QueryProcessStat
+{
+    repeated uint64 hot_goodsid_lst = 1; // 热门goodsid列表
+    repeated uint32 hot_cate3_lst = 2; // 热门三级品类列表
+    repeated uint64 hot_brandsn_lst = 3; // 热门品牌列表
+}

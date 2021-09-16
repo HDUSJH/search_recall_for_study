@@ -1,0 +1,18 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+import "query_process_info.proto";
+
+
+message SuggestText
+{
+    string suggest_text                             = 1; // suggest词 //必传 返回字段
+    repeated string suggest_text_seg_lst            = 2; // suggest分词 ["羽绒服"] //选传
+    repeated string suggest_text_lst                = 3; // suggest所有字 ["羽", "绒", "服"] //选传
+    repeated uint32 suggest_text_seg_id_lst         = 4; // suggest分词id //选传
+    repeated uint32 suggest_text_id_lst             = 5; // suggest所有字id //选传
+    QueryProcessIntent suggest_text_proc_intent     = 6; // suggest词意图 //选传
+    repeated string suggest_text_sell_point         = 7; // suggest创意词 //必传 返回字段
+    uint32 recall_goods_cnt                         = 8; // 召回商品数 //必传
+    uint32 on_sell_goods_cnt                        = 9; // 召回商品的在售商品数 //选传
+    float score                                     = 10; // 分数 //选传 返回字段
+}

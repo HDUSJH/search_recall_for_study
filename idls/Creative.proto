@@ -1,0 +1,9 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+
+message Creative {
+    string crid  = 1;        //广告创意id
+    float ctr_3d = 2;        //近3天广告创意ctr
+    float cvr_3d = 3;        //近3天广告创意cvr
+    string pid   = 4;       //广告位id
+}

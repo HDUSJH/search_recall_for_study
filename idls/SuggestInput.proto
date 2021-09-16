@@ -1,0 +1,13 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+import "query_process_info.proto";
+
+message SuggestInput
+{
+    string input_text                = 1; // 搜索框输入词
+    repeated string input_text_lst            = 2; // 搜索框输入词所有字 ["羽", "绒", "服"]
+    repeated string input_text_seg_lst        = 3; // 搜索框输入词分词 ["羽绒服"]
+    repeated uint32 input_text_id_lst         = 4; // 搜索框输入词所有字id
+    repeated uint32 input_text_seg_id_lst     = 5; // 搜索框输入词分词id
+    QueryProcessIntent input_text_proc_intent = 6; // 搜索框输入词意图
+}

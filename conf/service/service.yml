@@ -1,0 +1,30 @@
+executor:
+- name: match
+  thread_num: 10
+- name: fe_executor
+  thread_num: 60
+- name: mmoe_executor
+  thread_num: 60
+- name: tfservingExecutor
+  thread_num: 15
+is_debug: false
+mmoe_cof:
+  alpha: 20
+  beta: 120
+svr:
+  prometheus_port: 7920
+  redis_addr: gd16-redis-bigdata-tesseract-m01.vip.vip.com:6379
+  properties_path: /home/apps/properties/tess.json
+tfserving:
+  caller: test
+  name: search-prk-v1-wxin-faas-serving.ai.vip.com
+  signature: predict_export_outputs
+  timeout: 30
+timeout: 120
+debug:
+  entity_log_ratio: 0.01
+  need_entity_log: true
+  only_log_once_types: 1,2,3,4,5
+  need_faeture_log: true
+  need_tfserving_result_log: true
+  need_mmoe_result_log: true

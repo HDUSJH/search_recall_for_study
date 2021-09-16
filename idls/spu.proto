@@ -1,0 +1,64 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+message SpuItem{
+     uint64 spu_id                                          = 1  ;  //固有属性,商品spuid
+     uint32 cat3_id                                         = 2  ;  //三级类目id
+     uint32 cat2_id                                         = 3  ;  //二级类目id
+     uint32 cat1_id                                         = 4  ;  //一级类目id
+     uint32 brandsn                                         = 5  ;  //品牌id
+     string brandsn_level                                   = 6  ;  //品牌等级
+     string spu_title                                       = 7  ;  //商品名称
+     repeated uint32 suit_age                               = 8  ;  //商品的适用年龄段
+     repeated uint32 suit_gender                            = 9  ;  //商品的适用性别，1-男，2-女
+     repeated uint32 suit_season                            = 10 ;  //商品的适用季节，1-春，2-夏，3-秋，4-冬
+     repeated string item_word                              = 11 ;  //商品物品词
+     repeated uint32 style                                  = 12 ;  //商品的风格
+     repeated uint32 sellpoint                              = 13 ;  //商品的卖点， ptp标签
+     float arrival_price                                    = 14 ;  //到手价，goods维度min聚合到Spu维度
+     float vipshop_price                                    = 15 ;  //唯品价，goods维度min聚合到Spu维度
+     float market_price                                     = 16 ;  //吊牌价, goods维度min聚合到Spu维度
+     float external_price                                   = 17 ;  //外网价, goods维度min聚合到Spu维度
+     PicInfo pic_info                                       = 18 ;  //商品的图片信息
+     ItemAppraiseInfo appraise_info                         = 19 ;  //商品的评价信息
+     ItemEmbeddingList embedding_info                       = 20 ;  //商品的embedding信息
+     ItemStat stat_info                                     = 21 ;  //商品的统计信息
+      
+     message PicInfo{
+         string pic_id                                      = 1  ;  //商品的图像id(选取5号图)
+         uint32 has_video                                   = 2  ;  // 0-没有短视频，1-有短视频，聚合到Spu维度，有则为1
+         uint32 pic_num                                     = 3  ;  //商品的图片数量，sum聚合到Spu维度
+         repeated uint32 color                              = 4  ;  //商品颜色,直接取对应的vid，sum聚合到Spu维度
+         repeated uint32 size                               = 5  ;  //商品尺码,直接取对应的vid，sum聚合到Spu维度  
+     } //商品的图像特征
+ 
+     message ItemAppraiseInfo{
+         uint32 reputation_num                              = 1  ;  //评价数，goods维度sum聚合到Spu维度
+         uint32 reputation_pic_num                          = 2  ;  //评价晒图数，goods维度sum聚合到Spu维度
+         float comments_satisfied_ratio                     = 3  ;  //好评度，goods维度avg聚合到Spu维度
+     } //商品的评价
+ 
+     message ItemEmbeddingList
+     {
+         repeated float spu_overall_behavior_embdding       = 1  ;  // spu向量 (用户90天内点击以上)
+         repeated float brand_overall_behavior_embdding     = 2  ;  // brand向量 (用户90天内点击以上)
+         repeated float spu_pic_embdding                    = 3  ;  // spu图像向量
+         repeated float spu_query_embedding                 = 4  ;  // spu搜索向量
+     }
+   
+     message ItemStat{
+         uint64 click_count_30d                             = 1  ;  // 30d点击量
+         uint64 click_count_90d                             = 2  ;  // 90d点击量
+         uint64 add_cart_count_30d                          = 3  ;  // 30d加购量
+         uint64 add_cart_count_90d                          = 4  ;  // 90d加购量
+         uint64 order_count_30d                             = 5  ;  // 30d成交量（合格订单）
+         uint64 order_count_90d                             = 6  ;  // 90d成交量（合格订单）
+         float click_order_rate_30d                         = 7  ;  // 30d点击下单率
+         float click_order_rate_90d                         = 8  ;  // 90d点击下单率
+         float cart_order_rate_30d                          = 9  ;  // 30d加购下单率
+         float cart_order_rate_90d                          = 10 ;  // 90d加购下单率
+         float goods_return_rate_30d                        = 11 ;  // 30d退货率
+         float goods_return_rate_90d                        = 12 ;  // 90d退货率
+         float history_order_price_30d                      = 13 ;  // 30d历史成交价（合格订单）
+         float history_order_price_90d                      = 14 ;  // 90d历史成交价（合格订单）
+     }
+}

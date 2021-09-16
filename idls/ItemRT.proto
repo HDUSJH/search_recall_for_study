@@ -1,0 +1,42 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+//统计上个周期的item实时数据
+message ItemRT{
+    uint64 goods_id                                     = 1;   // goods_id
+    uint64 click_count_3h                               = 2;   // 3小时点击量 //李俊杰可以做
+    uint64 add_cart_count_3h                            = 3;   // 3小时加购量 //李俊杰可以做
+    uint64 order_count_3h                               = 4;   // 3小时成交量 //李俊杰可以做
+    uint64 pv_count_3h                                  = 5;   // 3小时曝光量 //李俊杰可以做
+    uint64 click_count_24h                              = 6;   // 24小时点击量 //李俊杰可以做
+    uint64 add_cart_count_24h                           = 7;   // 24小时加购量 //李俊杰可以做
+    uint64 order_count_24h                              = 8;   // 24小时成交量 //李俊杰可以做
+    uint64 pv_count_24h                                 = 9;   // 24小时曝光量 //李俊杰可以做
+    uint64 click_count_72h                              = 10;  // 72小时点击量 //李俊杰可以做
+    uint64 add_cart_count_72h                           = 11;  // 72小时加购量 //李俊杰可以做
+    uint64 order_count_72h                              = 12;  // 72小时成交量 //李俊杰可以做
+    uint64 pv_count_72h                                 = 13;  // 72小时曝光量 //李俊杰可以做
+ 
+    float goods_completeness_score                      = 14;  // goods粒度的尺码完整分
+    float spu_completeness_score                        = 15;  // spu粒度的尺码完整分
+    float pay_price_rt                                  = 16;  // 实时到手价格（多个size取avg）
+    int64 total_num                                     = 17;  // 总库存
+    int64 leaving_num                                   = 18;  // 可售库存
+    int64 cart_hold_num                                 = 19;  // 购物车占用库存
+    int64 order_hold_num                                = 20;  // 订单占用库存
+    uint64 size_num                                     = 21;  // 有多少个size
+    uint64 out_of_stock_size_num                        = 22;  // 有多少个size缺货
+    uint64 is_main_type_out_of_stock                    = 23;  // 最大总库存size是否缺货
+    map<uint64,int64> size_leaving_num_map              = 24;  // 各尺寸可售库存map
+    map<uint64,float> size_price_map                    = 25;  // 各尺寸价格map
+    repeated int64 out_of_stock_size_list               = 26;  // 缺货具体尺寸list
+ 
+    float search_goods_hot_result                       = 27;  // 搜索商品goods热度分
+    float search_spu_hot_result                         = 28;  // 搜索商品spu热度分
+    float rec_goods_hot_result                          = 29;  // 推荐商品goods热度分
+    float rec_spu_hot_result                            = 30;  // 推荐商品spu热度分
+
+    float last_3hours_price                             = 31;  // 最近3小时内的变价
+    float external_price                                = 32;  // 外网到手价
+
+    repeated string leaving_size_name                   = 35;  // 可售卖尺码名称，如 S, L, XL等
+}

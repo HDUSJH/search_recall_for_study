@@ -1,0 +1,12 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+
+message ItemInfo{
+    uint64 goods_id = 1; // goods_id
+    uint64 spu_id = 2; // spu_id
+    uint32 ct3_id = 3; // 三级品类id，待生产
+    uint32 ct2_id = 4; // 二级品类id，待生产
+    uint32 brand_id = 5; // 品牌id，待生产
+    uint64 timestamp = 6; // 点击时间    
+    string gender_label = 7; //商品性别
+}

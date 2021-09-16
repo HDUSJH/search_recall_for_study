@@ -1,0 +1,49 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+ 
+ 
+message BrandItemEmbeddingList
+{
+    repeated float brand_id_embedding             = 1;  // 档期内spu聚合的embedding
+    repeated float brand_sn_embedding             = 2;  // 档期品牌的embedding
+    repeated float sn_cat2_embdding               = 3;  // 品牌cross二级品类的embedding
+    repeated float real_brand_id_embdding         = 4;  // 档期内spu聚合的实时embedding 
+     
+ 
+}
+  
+message BrandItemStat{
+    uint64 brand_id                              = 1;   // brand_id
+    uint32 num_clk_3d                            = 2;   // 3d点击量
+    uint32 num_addcart_3d                        = 3;   // 3d加购量
+    uint32 num_order_3d                          = 4;   // 3d订单量
+    float  imp2clk_rate_3d                       = 5;   // 3d曝光点击率
+    float  clk2cart_rate_3d                      = 6;   // 3d点击加购率
+    float  cart2ord_rate_3d                      = 7;   // 3d加购订单率
+    uint32 num_clk_7d                            = 8;   // 7d点击量
+    uint32 num_addcart_7d                        = 9;   // 7d加购量
+    uint32 num_order_7d                          = 10;  // 7订单量
+    float  imp2clk_rate_7d                       = 11;  // 7d曝光点击率
+    float  clk2cart_rate_7d                      = 12;  // 7d点击加购率
+    float  cart2ord_rate_7d                      = 13;  // 7d加购订单率
+
+}
+   
+ 
+   
+message BrandItem{
+     uint64 brand_id                             = 1 ;   //固有属性,档期id
+     uint32 cat3_id                              = 2 ;   //三级类目id（取1个）
+     uint32 cat2_id                              = 3 ;   //二级类目id（取1个）
+     uint32 cat1_id                              = 4 ;   //一级类目id（取1个）
+     uint32 brandsn                              = 5 ;   //品牌id 取1个）
+     float avg_price                             = 6 ;   //档期内商品的平均价格
+     float mid_price                             = 7 ;   //档期内商品的中位数价格
+     string brandsn_level                        = 8 ;   //品牌等级
+     BrandItemEmbeddingList brand_embedding_info = 9 ;   //档期的embedding信息
+     BrandItemStat brand_stat_info               = 10;   //档期的统计信息
+     uint32 type                                 = 11;   //档期1，主题2
+     repeated uint64 goods_list                  = 12;   //取30天点击率top30的商品
+     uint32 brand_weight                         = 13;   //神舟品牌权重
+     float click_weight                          = 14;   //档期内商品点击权重     
+}

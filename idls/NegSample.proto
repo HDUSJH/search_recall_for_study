@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option cc_enable_arenas = true;
+import "item_info.proto";
+
+// NegSample.proto
+message NegSample {
+    string mid = 1;
+    repeated ItemInfo easy_neg_samples = 2;
+}

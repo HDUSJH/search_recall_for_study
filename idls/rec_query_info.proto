@@ -1,0 +1,39 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+message RecQueryInfo
+{
+    uint64       query_id                   = 1;  // 推荐的上文：可能是档期id，可能是组货id，可能是品牌sn
+    string       query_name                 = 2;  // 该品牌、档期、组货对应的名称, query_id + query_name 可唯一确定一个品牌、档期、组货
+    repeated string query_title_seg_list    = 4;  // 档期、组货、品牌title文本分词列表
+    string       query_top1_keyword         = 5;  // 档期、组货、品牌title分词后的tfidf top1关键词
+    RecQueryStat rec_query_stat             = 6;  // 档期、组货、品牌下各类统计信息
+    repeated float rec_query_emb            = 7;  // 档期、组货、品牌的embedding
+}
+ 
+message RecQueryStat
+{
+    uint64     query_id                                  = 1;   // query_id
+    float      avg_goods_price                           = 2;   // 该品牌、档期、组货下item平均价格
+    float      max_goods_price                           = 3;   // 该品牌、档期、组货下item最高价格
+    float      mid_goods_price                           = 4;   // 该品牌、档期、组货下item价格中位数
+    float      min_goods_price                           = 5;   // 该品牌、档期、组货下item最低价格
+    uint64     avg_has_sale_goods_sale_counts            = 6;   // 该品牌、档期、组货下有销量商品平均销量
+    uint64     max_has_sale_goods_sale_counts            = 7;   // 该品牌、档期、组货下有销量商品最大销量
+    uint64     mid_has_sale_goods_sale_counts            = 8;   // 该品牌、档期、组货下有销量商品销量中位数
+    uint64     min_has_sale_goods_sale_counts            = 9;   // 该品牌、档期、组货下有销量商品最小销量
+    float      has_sale_goods_percentage                 = 10;  // 该品牌、档期、组货下有销量商品占比
+    map<uint32, float> cate2_2_counts_percentage         = 11;  // 该品牌、档期、组货下各2级类目商品梳理占比key为cate2，value为百分比
+    map<uint32, float> cate3_2_counts_percentage         = 12;  // 该品牌、档期、组货下各3级类目商品梳理占比key为cate3，value为百分比
+    map<uint32, float> brandsn_2_counts_percentage       = 13;  // 该品牌、档期、组货下商品梳理占比key为brandsn，value为百分比
+    map<string, float> brandsn_level_2_counts_percentage = 14;  // 该品牌、档期、组货下商品梳理占比key为brandsn_level，value为百分比
+    map<uint32, float> cate2_2_counts_rank               = 15;  // 该品牌、档期、组货下各2级类目商品梳理占比key为cate2，value为排名，排名从1开始
+    map<uint32, float> cate3_2_counts_rank               = 16;  // 该品牌、档期、组货下各3级类目商品梳理占比key为cate3，value为排名，排名从1开始
+    map<uint32, float> brandsn_2_counts_rank             = 17;  // 该品牌、档期、组货下商品梳理占比key为brandsn，value为排名，排名从1开始
+    map<string, float> brandsn_level_2_counts_rank       = 18;  // 该品牌、档期、组货下商品梳理占比key为brandsn_level，value为排名，排名从1开始
+    float      crazy_goods_percentage                    = 19;  // 该品牌、档期、组货下"疯抢"商品占比
+    float      quick_goods_percentage                    = 20;  // 该品牌、档期、组货下"快抢"商品占比
+    float      new_goods_percentage                      = 21;  // 该品牌、档期、组货下"新货上架"商品占比
+    float      explosion_goods_percentage                = 22;  // 该品牌、档期、组货下"爆款"商品占比
+    float      vip_exclusive_goods_percentage            = 23;  // 该品牌、档期、组货下"唯品专供"商品占比
+    map<uint32, float> gender_precentage                 = 24;  // 该品牌、档期、组货下各性别商品占比, def 0, male 1, female 2
+}

@@ -1,0 +1,31 @@
+syntax = "proto3";
+option cc_enable_arenas = true;
+
+message Context{
+    string weekday = 1;             //星期几
+    string hh24 = 2;                //小时
+    uint64 city_id = 3;             //城市名              
+    uint64 area_id = 4;             //行政区id
+    float avg_temp = 5;             //当天平均气温
+    uint32 clothes_level = 6;       //当天穿衣指数
+    float week_avg_temp = 7;        //未来7天平均气温
+    uint32 week_clothes_level = 8;  //未来7天穿衣指数
+    string app_platform = 9;        //设备平台
+    string manufacturer = 10;       //手机厂商
+    string phone_model = 11;        //手机型号
+    uint32 channel_id = 12;         //app下载渠道
+    string os = 13;                 //操作系统
+    string os_version = 14;         //操作系统版本
+    string app_version = 15;        //app版本
+    string network_type = 16;       //网络类型
+    string face_flag = 17;          //app展示AB版本
+    string scene = 18;              //场景 搜索场景暂时写死为搜索场景，推荐场景为vre透传的scene
+    uint64 timestamp = 19;          //时间戳
+    string page_type = 20;          //页面名
+	
+    // 广告新增特征
+    string regionid  = 22;          //地域id
+    string supplierid = 23;         //广告接入方id
+    string rec_source = 24;         //商品推荐来源
+    string user_group_id = 25;      //用户组id
+}

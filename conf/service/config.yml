@@ -1,0 +1,26 @@
+entity:
+  entities:
+  - deser: deser_Context_1_0
+    level: 0
+    name: Context
+    proto: Context
+    type: 1
+  - deser: deser_SearchRecallSpu_2_1
+    level: 1
+    name: SearchRecallSpu
+    proto: SearchRecallSpu
+    type: 2
+  - deser: deser_SearchRecallQuery_3_0
+    level: 0
+    name: SearchRecallQuery
+    proto: SearchRecallQuery
+    type: 3
+  lib_name: libentity_deser.so
+  proto_file: not defined
+operation:
+  lib_name: libops.so
+  ops:
+  - level: 0
+    name: ops_level_0
+  - level: 1
+    name: ops_level_1

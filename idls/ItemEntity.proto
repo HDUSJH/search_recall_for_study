@@ -1,0 +1,92 @@
+syntax="proto3";
+option cc_enable_arenas = true;
+message ItemEmbeddingList
+{
+    repeated float spu_overall_behavior_embdding   = 1;  // spu向量 (用户90天内点击以上)
+    repeated float spu_cate2_behavior_embdding     = 2;  // spu向量 (用户90天内点击及以上且行为按二级类目聚合)
+    repeated float brand_overall_behavior_embdding = 3;  // brand向量 (用户90天内点击以上)
+    repeated float brand_cate2_behavior_embdding   = 4;  // brand_cate向量 (用户90天内点击以上)
+    repeated float spu_pic_embdding                = 5;  // spu图像向量
+    repeated float spu_text_embdding               = 6;  // spu文本向量
+    repeated float spu_query_embedding             = 7;  // spu搜索向量
+}
+ 
+message ItemStat{
+    uint64 goods_id               = 1;  // goods_id
+    uint64 click_count_30d        = 2;  // 30d点击量
+    uint64 click_count_90d        = 3;  // 90d点击量
+    uint64 add_cart_count_30d     = 4;  // 30d加购量
+    uint64 add_cart_count_90d     = 5;  // 90d加购量
+    uint64 order_count_30d        = 6;  // 30d成交量（合格订单）
+    uint64 order_count_90d        = 7;  // 90d成交量（合格订单）
+    float click_order_rate_30d    = 8;  // 30d点击下单率
+    float click_order_rate_90d    = 9;  // 90d点击下单率
+    float cart_order_rate_30d     = 10;  // 30d加购下单率
+    float cart_order_rate_90d     = 11;  // 90d加购下单率
+    float goods_return_rate_30d   = 12;  // 30d退货率
+    float goods_return_rate_90d   = 13;  // 90d退货率
+    float history_order_price_30d = 14;  // 30d历史成交价（合格订单）
+    float history_order_price_90d = 15;  // 90d历史成交价（合格订单）
+}
+  
+message PicInfo{
+   string pic_id           = 1 ;  //商品的图像id(选取5号图)
+   uint32 has_video        = 2 ;  // 0-没有短视频，1-有短视频
+   uint32 pic_num          = 3 ;  //商品的图片数量
+   repeated uint32 color   = 4 ;  //商品颜色,直接取对应的vid
+   repeated uint32 size    = 5 ;  //商品尺码,直接取对应的vid
+  
+} //商品的图像特征
+ 
+message Spu{
+    uint64 spu_id                    = 1 ;  //spu_id
+    repeated uint32 spu_age          = 2 ;  //商品的适用年龄段
+    repeated uint32 gender           = 3 ;  //商品的适用性别，1-男，2-女
+    string spu_title                 = 4 ;  //商品名称
+    repeated uint32 suit_season      = 5 ;  //商品的适用季节，1-春，2-夏，3-秋，4-冬
+    repeated string spu_item         = 6 ;  //商品物品词
+    repeated uint32 spu_style        = 7 ;  //商品的风格
+    repeated uint32 spu_sellpoint    = 8 ;  //商品的卖点
+    uint32 is_new                    = 9 ;  //SPU是否是新款
+    uint32 is_hot                    = 10;  //SPU是否是爆款
+    uint32 is_vip_special            = 11;  //SPU是否是唯品会专供款
+    repeated uint32 property_id_lst  = 12;  //商品属性词
+    repeated uint32 main_prod_id_st  = 13;  //商品物品词
+    repeated uint32 ext_prod_id_lst  = 14;  //商品副物品词
+    repeated string title_seg_lst    = 15;  //商品名称文本分词列表
+    repeated float  title_text_emb   = 16;  //商品名称文本预训练向量
+  }
+  
+message Item{
+     uint64 goods_id                        = 1 ;   //固有属性,商品id
+     Spu spu_info                           = 2 ;   //spu信息
+     uint32 cat3_id                         = 3 ;   //三级类目id
+     uint32 cat2_id                         = 4 ;   //二级类目id
+     uint32 cat1_id                         = 5 ;   //一级类目id
+     uint32 brandsn                         = 6 ;   //品牌id
+     string brandsn_level                   = 7 ;   //品牌等级 
+     GoodsPriceInfo goods_price_info        = 8 ;   //商品价格信息
+     PicInfo pic_info                       = 9 ;   //商品的图片信息
+     GoodsAppraiseInfo goods_appraise_info  = 10 ;  //商品的评价信息
+     ItemEmbeddingList goods_embedding_info = 11 ;  //商品的embedding信息
+     ItemStat goods_stat_info               = 12 ;  //商品的统计信息
+ 
+  
+    message GoodsPriceInfo{
+       float arrival_price  = 1 ;  //到手价
+       float vipshop_price  = 2 ;  //唯品价
+       float market_price   = 3 ;  //吊牌价
+       float external_price = 4 ; //外网价
+       uint32 is_super_v_95_discount = 5; //是否是超v95折价，1-是超v 95折 ，0-不是
+       uint32 is_super_v_special = 6; //是否超v补贴价，1-是超v补贴价，0，不是
+       uint32 is_has_goods_coupon = 7; //是否有单品券，1-有单品券，0-无单品券
+       float arrival_price_7d     = 8 ;  //7天内平均到手价
+       float arrival_price_30d    = 9 ;  //30天内平均到手价
+    } //商品的价格类特征
+  
+    message GoodsAppraiseInfo{
+      uint32 reputation_num          = 1 ;  //评价数
+      uint32 reputation_pic_num      = 2 ;  //评价晒图数
+      float comments_satisfied_ratio = 3 ;  //好评度
+    } //商品的评价
+}

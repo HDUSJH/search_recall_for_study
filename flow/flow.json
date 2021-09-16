@@ -1,0 +1,41 @@
+{
+    "nodes": [
+        {
+            "name": "match_1",
+            "desc_name": "Match",
+            "deps": [],
+            "params": {
+                "impression": "hdfs://bipcluster04/bip/external_data/vipreco/tess_official/entity/$dt/search_recall_impression",
+                "entity.1": "hdfs://bipcluster04/bip/external_data/vipreco/tess_official/entity/$dt/context",
+                "entity.2": "hdfs://bipcluster04/bip/external_data/vipreco/search_recall_spu/entity/$dt/spu",
+                "entity.3": "hdfs://bipcluster04/bip/external_data/vipreco/search_recall_query/entity/$dt/query",
+                "type_join_seq": "1,2,3",
+                "retain_days": "1"
+            }
+        },
+        {
+            "name": "fe_1",
+            "desc_name": "FeatureExtractorORC",
+            "deps": [
+                "match_1"
+            ],
+            "params": {
+                "retain_days": "1"
+            }
+        },
+        {
+            "name": "tf_1",
+            "desc_name": "TF",
+            "deps": [
+                "fe_1"
+            ],
+            "params": {}
+        }
+    ],
+    "targets": [
+        "tf_1"
+    ],
+     "params": {
+        "retain_days": "7"
+    }
+}

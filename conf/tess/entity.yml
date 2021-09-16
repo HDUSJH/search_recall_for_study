@@ -1,0 +1,13 @@
+entities:
+  - name: Context
+    level: 0
+    proto: Context
+    type_id: 1
+  - name: SearchRecallSpu
+    level: 1
+    proto: SearchRecallSpu
+    type_id: 2
+  - name: SearchRecallQuery
+    level: 0
+    proto: SearchRecallQuery
+    type_id: 3

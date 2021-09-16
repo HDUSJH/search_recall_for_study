@@ -1,0 +1,22 @@
+feature_config:
+  - level: 0
+    ops:
+      # Context
+      - "sparse({Context.clothes_level}, 1)"            # 当天穿衣指数
+      - "sparse({Context.week_clothes_level}, 2)"       # 未来7天穿衣指数
+      - "sparse({Context.os}, 3)"                       # 操作系统
+      - "sparse({Context.network_type}, 4)"             # 网络类型
+
+      # Query特征
+      - "dense_list({SearchRecallQuery.query_hash}, 5, 150)"  # query 词 emb
+
+  - level: 1
+    ops:
+      # Spu
+      - "sparse({SearchRecallSpu.cat1_id}, 6)"                    # 一级类目id
+      - "sparse({SearchRecallSpu.cat2_id}, 7)"                    # 二级类目id
+      - "sparse({SearchRecallSpu.cat3_id}, 8)"                    # 三级类目id
+      - "sparse({SearchRecallSpu.brandsn}, 9)"                    # 品牌
+      - "sparse({SearchRecallSpu.brandsn_level}, 10)"           # 品牌等级
+      - "dense_list({SearchRecallSpu.spu_title}, 11, 150)"   # spu_title embedding
+      - "sparse(seg({SearchRecallSpu.comments_satisfied_ratio}, [0.000001,0.5,0.67,0.75,0.86,0.90,0.95,0.96,0.97,0.98,0.99]), 12)" #好评率
